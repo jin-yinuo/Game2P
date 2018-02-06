@@ -39,7 +39,7 @@ public class SinglePlay extends AppCompatActivity {
         Button bt = (Button) findViewById(R.id.button9);
         bt.setSelected(false);
 
-        Button shuffleButton = (Button) findViewById(R.id.shuffleButton);
+        Button shuffleButton = (Button) findViewById(R.id.shuffle_button);
         shuffleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
