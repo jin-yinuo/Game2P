@@ -1,4 +1,11 @@
 package com.example.jessie.game2p;
+import java.util.Random;
+import java.util.Arrays;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import org.w3c.dom.Element;
 
 /**
  * Created by Jessie on 10/14/2017.
@@ -10,6 +17,9 @@ import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import static android.R.color.holo_blue_dark;
+import static android.R.color.holo_red_dark;
+
 public class SinglePlay extends AppCompatActivity {
     ImageButton pauseButton;
     ImageView pauseScreenShadow;
@@ -19,9 +29,23 @@ public class SinglePlay extends AppCompatActivity {
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16;
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
+
+        shuffleSquares();
+
+        Button bt = (Button) findViewById(R.id.button9);
+        bt.setSelected(false);
+
+        Button shuffleButton = (Button) findViewById(R.id.shuffleButton);
+        shuffleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shuffleSquares();
+            }
+        });
 
         pauseButton = (ImageButton) findViewById(R.id.pause_button);
         pauseScreenShadow = (ImageView) findViewById(R.id.pause_screen_shadow);
@@ -100,5 +124,34 @@ public class SinglePlay extends AppCompatActivity {
         });
     }
 
+
+    public void toggleSquare(ImageView square) {
+        if (square.isSelected()) {
+            square.setBackgroundColor(getResources().getColor(holo_blue_dark));
+        }
+        else {
+            square.setBackgroundColor(getResources().getColor(holo_red_dark));
+        }
+    }
+
+    public void shuffleSquares() {
+        Random obj = new Random();
+        int coloured = obj.nextInt(5) +5;
+        int[] randomArr = new int[coloured];
+        for (int i = 0; i < coloured; ++i) {
+            int r = obj.nextInt(16);
+            if (!Arrays.asList(randomArr).contains(r)) {
+                randomArr[i] = r;
+            }
+
+        }
+        for (int i = 0; i < coloured; ++i) {
+            String squareID = "imageView" + (i+1);
+            int id = getResources().getIdentifier(squareID, "id", getPackageName());
+            toggleSquare((ImageView) findViewById(id));
+        }
+
+
+    }
 
 }
