@@ -121,41 +121,23 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <ImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/imageView11"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
             android:id="@+id/imageView13"
             android:layout_width="47dp"
             android:layout_height="47dp"
-            app:srcCompat="@android:color/holo_blue_dark" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="47dp"
-            android:layout_height="47dp"
             app:layout_constraintRight_toLeftOf="@+id/imageView3"
-            app:srcCompat="@android:color/holo_blue_dark" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="47dp"
-            android:layout_height="47dp"
-            app:srcCompat="@android:color/holo_blue_dark" />
-
-        <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="47dp"
-            android:layout_height="47dp"
-            app:srcCompat="@android:color/holo_blue_dark" />
-
-        <ImageView
-            android:id="@+id/imageView16"
-            android:layout_width="47dp"
-            android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
@@ -165,55 +147,73 @@
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/imageView21"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/imageView22"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView12"
+            android:id="@+id/imageView23"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imageView24"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imageView31"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imageView32"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imageView33"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/imageView34"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imageView41"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:srcCompat="@android:color/holo_blue_dark" />
+
+        <ImageView
+            android:id="@+id/imageView42"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:srcCompat="@android:color/holo_blue_dark" />
+
+        <ImageView
+            android:id="@+id/imageView43"
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            app:srcCompat="@android:color/holo_blue_dark" />
+
+        <ImageView
+            android:id="@+id/imageView44"
             android:layout_width="47dp"
             android:layout_height="47dp"
             app:srcCompat="@android:color/holo_blue_dark" />
@@ -228,27 +228,7 @@
         android:visibility="visible">
 
         <Button
-            android:id="@+id/button15"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
             android:id="@+id/button11"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button5"
             android:layout_width="47dp"
             android:layout_height="47dp" />
 
@@ -258,37 +238,7 @@
             android:layout_height="47dp" />
 
         <Button
-            android:id="@+id/button6"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="47dp"
-            android:layout_height="47dp" />
-
-        <Button
-            android:id="@+id/button3"
+            android:id="@+id/button13"
             android:layout_width="47dp"
             android:layout_height="47dp" />
 
@@ -298,12 +248,62 @@
             android:layout_height="47dp" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button21"
             android:layout_width="47dp"
             android:layout_height="47dp" />
 
         <Button
-            android:id="@+id/button16"
+            android:id="@+id/button22"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button23"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button24"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button31"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button32"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button33"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button34"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button41"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button42"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button43"
+            android:layout_width="47dp"
+            android:layout_height="47dp" />
+
+        <Button
+            android:id="@+id/button44"
             android:layout_width="47dp"
             android:layout_height="47dp" />
     </GridLayout>
