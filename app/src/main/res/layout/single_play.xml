@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -375,43 +376,6 @@
         tools:layout_editor_absoluteX="68dp"
         tools:layout_editor_absoluteY="89dp" />
 
-    <ImageView
-        android:id="@+id/pause_screen_shadow"
-        android:layout_width="610dp"
-        android:layout_height="870dp"
-        android:layout_marginBottom="-823dp"
-        android:layout_marginRight="-605dp"
-        android:layout_marginTop="8dp"
-        android:alpha="0.8"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:color/black"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintRight_creator="1" />
-
-    <ImageView
-        android:id="@+id/pause_screen_background"
-        android:layout_width="495dp"
-        android:layout_height="713dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@android:color/white"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
-
     <ImageButton
         android:id="@+id/pause_button"
         android:layout_width="61dp"
@@ -432,40 +396,39 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         android:layout_marginEnd="16dp" />
 
-    <Button
-        android:id="@+id/resume_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:text="Resume"
-        android:textSize="24sp"
-        android:visibility="gone"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintRight_toRightOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.0" />
+    <RelativeLayout
+        android:id="@+id/pause_screen_shadow"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1.0"
+        android:visibility="gone">
 
-    <Button
-        android:id="@+id/main_menu_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:text="Main Menu"
-        android:textSize="24sp"
-        android:visibility="gone"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
-        app:layout_constraintRight_toRightOf="@+id/imageView13"
-        app:layout_constraintTop_toBottomOf="@+id/imageView13"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toRightOf="@+id/imageView13"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0" />
+        <ImageView
+            android:id="@+id/pause_screen_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:alpha="0.8"
+            app:srcCompat="@android:color/white"/>
 
+        <Button
+            android:id="@+id/resume_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resume"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/main_menu_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resume_button"
+            android:text="Main Menu"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

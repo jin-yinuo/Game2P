@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class SinglePlay extends AppCompatActivity {
+    RelativeLayout pauseShadow;
     ImageButton pauseButton;
-    ImageView pauseScreenShadow;
     ImageView pauseScreenBackground;
     Button resumeButton;
     Button mainmenuButton;
@@ -23,8 +24,8 @@ public class SinglePlay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
 
+        pauseShadow = (RelativeLayout) findViewById(R.id.pause_screen_shadow);
         pauseButton = (ImageButton) findViewById(R.id.pause_button);
-        pauseScreenShadow = (ImageView) findViewById(R.id.pause_screen_shadow);
         pauseScreenBackground = (ImageView) findViewById(R.id.pause_screen_background);
         resumeButton = (Button) findViewById(R.id.resume_button);
         mainmenuButton = (Button) findViewById(R.id.main_menu_button);
@@ -49,7 +50,7 @@ public class SinglePlay extends AppCompatActivity {
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                pauseScreenShadow.setVisibility(View.VISIBLE);
+                pauseShadow.setVisibility(View.VISIBLE);
                 pauseScreenBackground.setVisibility(View.VISIBLE);
                 resumeButton.setVisibility(View.VISIBLE);
                 mainmenuButton.setVisibility(View.VISIBLE);
@@ -75,7 +76,7 @@ public class SinglePlay extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                pauseScreenShadow.setVisibility(View.GONE);
+                pauseShadow.setVisibility(View.GONE);
                 pauseScreenBackground.setVisibility(View.GONE);
                 resumeButton.setVisibility(View.GONE);
                 mainmenuButton.setVisibility(View.GONE);
