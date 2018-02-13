@@ -2,6 +2,7 @@ package com.example.jessie.game2p;
 
 import java.util.Random;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
@@ -91,6 +92,13 @@ public class SinglePlay extends AppCompatActivity {
 //                        bArray[i][j].setEnabled(true);
                     }
                 }
+            }
+        });
+
+        mainmenuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(SinglePlay.this, Main.class);
+                SinglePlay.this.startActivity(i);
             }
         });
 

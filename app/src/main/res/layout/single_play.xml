@@ -233,23 +233,11 @@
 
     <ImageButton
         android:id="@+id/pause_button"
-        android:layout_width="61dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/darker_gray"
-        android:backgroundTint="@android:color/background_light"
-        android:tint="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_media_pause"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        app:srcCompat="@android:drawable/ic_media_pause" />
 
     <RelativeLayout
         android:id="@+id/pause_screen_shadow"
