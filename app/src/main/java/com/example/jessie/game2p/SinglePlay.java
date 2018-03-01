@@ -68,7 +68,8 @@ public class SinglePlay extends AppCompatActivity {
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                pauseShadow.setVisibility(View.VISIBLE);                pauseScreenBackground.setVisibility(View.VISIBLE);
+                pauseShadow.setVisibility(View.VISIBLE);
+                pauseScreenBackground.setVisibility(View.VISIBLE);
                 resumeButton.setVisibility(View.VISIBLE);
                 mainmenuButton.setVisibility(View.VISIBLE);
                 pauseButton.setEnabled(false);
