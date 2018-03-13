@@ -31,23 +31,25 @@ public class SinglePlay extends AppCompatActivity {
     ImageView pauseScreenBackground;
     Button resumeButton;
     Button mainmenuButton;
+
+    Button b11, b12, b13, b14, b21, b22, b23, b24, b31, b32, b33, b34, b41, b42, b43, b44;
     ImageView i11, i12, i13, i14, i21, i22, i23, i24, i31, i32, i33, i34, i41, i42, i43, i44,
             i51, i52, i53, i54, i61, i62, i63, i64, i71, i72, i73, i74, i81, i82, i83, i84;
-    ImageView[][] sqArray = {{i11, i12, i13, i14}, {i21, i22, i23, i24}, {i31, i32, i33, i34}, {i41, i42, i43, i44},
-            {i51, i52, i53, i54}, {i61, i62, i63, i64}, {i71, i72, i73, i74}, {i81, i82, i83, i84}};
-
+    Button[][] bArray;
+    ImageView[][] sqArray;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
 
-        shuffleSquares();
+//        shuffleSquares();
 
         pauseShadow = (RelativeLayout) findViewById(R.id.pause_screen_shadow);
         pauseButton = (ImageButton) findViewById(R.id.pause_button);
         pauseScreenBackground = (ImageView) findViewById(R.id.pause_screen_background);
         resumeButton = (Button) findViewById(R.id.resume_button);
         mainmenuButton = (Button) findViewById(R.id.main_menu_button);
+
         i11 = (ImageView) findViewById(R.id.imageView11);
         i12 = (ImageView) findViewById(R.id.imageView12);
         i13 = (ImageView) findViewById(R.id.imageView13);
@@ -80,6 +82,8 @@ public class SinglePlay extends AppCompatActivity {
         i82 = (ImageView) findViewById(R.id.imageView82);
         i83 = (ImageView) findViewById(R.id.imageView83);
         i84 = (ImageView) findViewById(R.id.imageView84);
+        sqArray = new ImageView[][]{{i11, i12, i13, i14}, {i21, i22, i23, i24}, {i31, i32, i33, i34}, {i41, i42, i43, i44},
+                {i51, i52, i53, i54}, {i61, i62, i63, i64}, {i71, i72, i73, i74}, {i81, i82, i83, i84}};
 
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
@@ -155,17 +159,19 @@ public class SinglePlay extends AppCompatActivity {
         int coloured = obj.nextInt(5) + 5;
         int[] randomArr = new int[coloured];
         for (int i = 0; i < coloured; ++i) {
-            int r = obj.nextInt(32);
-            if (!contains(randomArr, r)) {
-                randomArr[i] = r;
-                break;
+            while (true) {
+                int r = obj.nextInt(17);
+                if (!contains(randomArr, r)) {
+                    randomArr[i] = r;
+                    break;
+                }
             }
         }
         for (int i = 0; i < coloured; ++i) {
-            int row = randomArr[i] / 8;
-            int col = randomArr[i] % 4;
-//            ImageView sq = sqArray[row][col];
-//            toggleSquare(sq);
+            int row = (randomArr[i] - 1) / 4;
+            int col = (randomArr[i] - 1 - row * 4) % 4;
+            ImageView sq = sqArray[row][col];
+            toggleSquare(sq);
         }
     }
 
