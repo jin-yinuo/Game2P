@@ -33,15 +33,14 @@ public class SinglePlay extends AppCompatActivity {
     Button mainmenuButton;
     Button b11, b12, b13, b14, b21, b22, b23, b24, b31, b32, b33, b34, b41, b42, b43, b44;
     ImageView i11, i12, i13, i14, i21, i22, i23, i24, i31, i32, i33, i34, i41, i42, i43, i44;
-    Button[][] bArray = {{b11, b12, b13, b14}, {b21, b22, b23, b24}, {b31, b32, b33, b34}, {b41, b42, b43, b44}};
-    ImageView[][] sqArray = {{i11, i12, i13, i14}, {i21, i22, i23, i24}, {i31, i32, i33, i34}, {i41, i42, i43, i44}};
-
+    Button[][] bArray;
+    ImageView[][] sqArray;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
 
-        shuffleSquares();
+//        shuffleSquares();
 
         pauseShadow = (RelativeLayout) findViewById(R.id.pause_screen_shadow);
         pauseButton = (ImageButton) findViewById(R.id.pause_button);
@@ -64,6 +63,24 @@ public class SinglePlay extends AppCompatActivity {
         b42 = (Button) findViewById(R.id.button42);
         b43 = (Button) findViewById(R.id.button43);
         b44 = (Button) findViewById(R.id.button44);
+        i11 = (ImageView) findViewById(R.id.imageView11);
+        i12 = (ImageView) findViewById(R.id.imageView12);
+        i13 = (ImageView) findViewById(R.id.imageView13);
+        i14 = (ImageView) findViewById(R.id.imageView14);
+        i21 = (ImageView) findViewById(R.id.imageView21);
+        i22 = (ImageView) findViewById(R.id.imageView22);
+        i23 = (ImageView) findViewById(R.id.imageView23);
+        i24 = (ImageView) findViewById(R.id.imageView24);
+        i31 = (ImageView) findViewById(R.id.imageView31);
+        i32 = (ImageView) findViewById(R.id.imageView32);
+        i33 = (ImageView) findViewById(R.id.imageView33);
+        i34 = (ImageView) findViewById(R.id.imageView34);
+        i41 = (ImageView) findViewById(R.id.imageView41);
+        i42 = (ImageView) findViewById(R.id.imageView42);
+        i43 = (ImageView) findViewById(R.id.imageView43);
+        i44 = (ImageView) findViewById(R.id.imageView44);
+        bArray = new Button[][]{{b11, b12, b13, b14}, {b21, b22, b23, b24}, {b31, b32, b33, b34}, {b41, b42, b43, b44}};
+        sqArray = new ImageView[][]{{i11, i12, i13, i14}, {i21, i22, i23, i24}, {i31, i32, i33, i34}, {i41, i42, i43, i44}};
 
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
@@ -115,10 +132,10 @@ public class SinglePlay extends AppCompatActivity {
 
     public void toggleSquare(ImageView square) {
         if (square.isSelected()) {
-            square.setBackgroundColor(Color.BLUE);
+            square.setColorFilter(Color.BLUE);
             square.setSelected(false);
         } else {
-            square.setBackgroundColor(Color.RED);
+            square.setColorFilter(Color.RED);
             square.setSelected(true);
         }
     }
@@ -128,17 +145,19 @@ public class SinglePlay extends AppCompatActivity {
         int coloured = obj.nextInt(5) + 5;
         int[] randomArr = new int[coloured];
         for (int i = 0; i < coloured; ++i) {
-            int r = obj.nextInt(16);
-            if (!contains(randomArr, r)) {
-                randomArr[i] = r;
-                break;
+            while (true) {
+                int r = obj.nextInt(17);
+                if (!contains(randomArr, r)) {
+                    randomArr[i] = r;
+                    break;
+                }
             }
         }
         for (int i = 0; i < coloured; ++i) {
-            int row = randomArr[i] / 4;
-            int col = randomArr[i] % 4;
-//            ImageView sq = sqArray[row][col];
-//            toggleSquare(sq);
+            int row = (randomArr[i] - 1) / 4;
+            int col = (randomArr[i] - 1 - row * 4) % 4;
+            ImageView sq = sqArray[row][col];
+            toggleSquare(sq);
         }
     }
 
