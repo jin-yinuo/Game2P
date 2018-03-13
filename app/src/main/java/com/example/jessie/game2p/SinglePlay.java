@@ -32,11 +32,12 @@ public class SinglePlay extends AppCompatActivity {
     Button resumeButton;
     Button mainmenuButton;
 
-    Button b11, b12, b13, b14, b21, b22, b23, b24, b31, b32, b33, b34, b41, b42, b43, b44;
     ImageView i11, i12, i13, i14, i21, i22, i23, i24, i31, i32, i33, i34, i41, i42, i43, i44,
             i51, i52, i53, i54, i61, i62, i63, i64, i71, i72, i73, i74, i81, i82, i83, i84;
     Button[][] bArray;
     ImageView[][] sqArray;
+    final int numRow = 8;
+    final int numCol = 4;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,8 +94,8 @@ public class SinglePlay extends AppCompatActivity {
                 resumeButton.setVisibility(View.VISIBLE);
                 mainmenuButton.setVisibility(View.VISIBLE);
                 pauseButton.setEnabled(false);
-                for (int i = 0; i < 8; ++i) {
-                    for (int j = 0; j < 4; ++j) {
+                for (int i = 0; i < numRow; ++i) {
+                    for (int j = 0; j < numCol; ++j) {
 //                        sqArray[i][j].setEnabled(false);
                     }
                 }
@@ -108,8 +109,8 @@ public class SinglePlay extends AppCompatActivity {
                 resumeButton.setVisibility(View.GONE);
                 mainmenuButton.setVisibility(View.GONE);
                 pauseButton.setEnabled(true);
-                for (int i = 0; i < 8; ++i) {
-                    for (int j = 0; j < 4; ++j) {
+                for (int i = 0; i < numRow; ++i) {
+                    for (int j = 0; j < numCol; ++j) {
 //                        sqArray[i][j].setEnabled(true);
                     }
                 }
@@ -123,8 +124,8 @@ public class SinglePlay extends AppCompatActivity {
             }
         });
 
-//        for(int i = 0; i < 8; i++){
-//            for(int j = 0; j < 4; j++){
+//        for(int i = 0; i < numRow; i++){
+//            for(int j = 0; j < numCol; j++){
 //                final int x = i;
 //                final int y = j;
 //                sqArray[i][j].setOnClickListener(new View.OnClickListener() {
@@ -160,7 +161,7 @@ public class SinglePlay extends AppCompatActivity {
         int[] randomArr = new int[coloured];
         for (int i = 0; i < coloured; ++i) {
             while (true) {
-                int r = obj.nextInt(17);
+                int r = obj.nextInt((numRow*numCol)+1);
                 if (!contains(randomArr, r)) {
                     randomArr[i] = r;
                     break;
@@ -169,7 +170,7 @@ public class SinglePlay extends AppCompatActivity {
         }
         for (int i = 0; i < coloured; ++i) {
             int row = (randomArr[i] - 1) / 4;
-            int col = (randomArr[i] - 1 - row * 4) % 4;
+            int col = (randomArr[i] - 1) % 4;
             ImageView sq = sqArray[row][col];
             toggleSquare(sq);
         }
