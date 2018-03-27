@@ -12,6 +12,7 @@ public class Timer {
 
     public Timer() {
         Long startTime = System.currentTimeMillis();
+        Long endTime = startTime += 10000;
     };
 
     public void pause() {

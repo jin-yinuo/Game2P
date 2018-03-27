@@ -1,9 +1,13 @@
 package com.example.jessie.game2p;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -37,9 +41,6 @@ public class SinglePlay extends AppCompatActivity {
     Button nextButton;
     TextView scoreText;
 
-    final int numRow = 8;
-    final int numCol = 4;
-
     ImageView i11, i12, i13, i14, i21, i22, i23, i24, i31, i32, i33, i34, i41, i42, i43, i44,
             i51, i52, i53, i54, i61, i62, i63, i64, i71, i72, i73, i74, i81, i82, i83, i84;
     Button[][] bArray;
@@ -47,6 +48,10 @@ public class SinglePlay extends AppCompatActivity {
     int[][] compArray;
 
     int totalScore;
+
+    final int numRow = 8;
+    final int numCol = 4;
+    final int timeOut = 2000;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +186,23 @@ public class SinglePlay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 shuffleSquares();
+                final Handler handler = new Handler();
+                final Timer timer2 = new Timer();
+                TimerTask testing = new TimerTask() {
+                    public void run() {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                resetSquares();
+                                timer2.cancel();
+                            }
+
+                        });
+
+
+                    }
+                };
+                timer2.schedule(testing, timeOut);
+
             }
         });
     }
@@ -227,6 +249,15 @@ public class SinglePlay extends AppCompatActivity {
                 } else {
                     compArray[i][j] = 0;
                 }
+            }
+        }
+    }
+
+    public void resetSquares() {
+        for (int i = 0; i < numRow; i++) {
+            for (int j = 0; j < numCol; j++) {
+                sqArray[i][j].setColorFilter(Color.BLUE);
+                sqArray[i][j].setSelected(false);
             }
         }
     }
