@@ -21,9 +21,12 @@ import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import static android.R.color.holo_blue_dark;
 import static android.R.color.holo_red_dark;
+import static java.lang.Math.max;
+import static java.util.Arrays.fill;
 
 public class SinglePlay extends AppCompatActivity {
     RelativeLayout pauseShadow;
@@ -31,25 +34,31 @@ public class SinglePlay extends AppCompatActivity {
     ImageView pauseScreenBackground;
     Button resumeButton;
     Button mainmenuButton;
+    Button nextButton;
+    TextView scoreText;
+
+    final int numRow = 8;
+    final int numCol = 4;
 
     ImageView i11, i12, i13, i14, i21, i22, i23, i24, i31, i32, i33, i34, i41, i42, i43, i44,
             i51, i52, i53, i54, i61, i62, i63, i64, i71, i72, i73, i74, i81, i82, i83, i84;
     Button[][] bArray;
     ImageView[][] sqArray;
-    final int numRow = 8;
-    final int numCol = 4;
+    int[][] compArray;
+
+    int totalScore;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
-
-//        shuffleSquares();
 
         pauseShadow = (RelativeLayout) findViewById(R.id.pause_screen_shadow);
         pauseButton = (ImageButton) findViewById(R.id.pause_button);
         pauseScreenBackground = (ImageView) findViewById(R.id.pause_screen_background);
         resumeButton = (Button) findViewById(R.id.resume_button);
         mainmenuButton = (Button) findViewById(R.id.main_menu_button);
+        nextButton = (Button) findViewById(R.id.next_button);
+        scoreText = (TextView) findViewById(R.id.score_text);
 
         i11 = (ImageView) findViewById(R.id.imageView11);
         i12 = (ImageView) findViewById(R.id.imageView12);
@@ -85,7 +94,12 @@ public class SinglePlay extends AppCompatActivity {
         i84 = (ImageView) findViewById(R.id.imageView84);
         sqArray = new ImageView[][]{{i11, i12, i13, i14}, {i21, i22, i23, i24}, {i31, i32, i33, i34}, {i41, i42, i43, i44},
                 {i51, i52, i53, i54}, {i61, i62, i63, i64}, {i71, i72, i73, i74}, {i81, i82, i83, i84}};
+        compArray = new int[numRow][numCol];
 
+        final GameScore gameScore = new GameScore();
+        gameScore.score = 0;
+
+        shuffleSquares();
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -94,9 +108,10 @@ public class SinglePlay extends AppCompatActivity {
                 resumeButton.setVisibility(View.VISIBLE);
                 mainmenuButton.setVisibility(View.VISIBLE);
                 pauseButton.setEnabled(false);
+                nextButton.setEnabled(false);
                 for (int i = 0; i < numRow; ++i) {
                     for (int j = 0; j < numCol; ++j) {
-//                        sqArray[i][j].setEnabled(false);
+                        sqArray[i][j].setEnabled(false);
                     }
                 }
             }
@@ -109,9 +124,10 @@ public class SinglePlay extends AppCompatActivity {
                 resumeButton.setVisibility(View.GONE);
                 mainmenuButton.setVisibility(View.GONE);
                 pauseButton.setEnabled(true);
+                nextButton.setEnabled(true);
                 for (int i = 0; i < numRow; ++i) {
                     for (int j = 0; j < numCol; ++j) {
-//                        sqArray[i][j].setEnabled(true);
+                        sqArray[i][j].setEnabled(true);
                     }
                 }
             }
@@ -124,17 +140,41 @@ public class SinglePlay extends AppCompatActivity {
             }
         });
 
-//        for(int i = 0; i < numRow; i++){
-//            for(int j = 0; j < numCol; j++){
-//                final int x = i;
-//                final int y = j;
-//                sqArray[i][j].setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        toggleSquare(sqArray[x][y]);
-//                    }
-//                });
-//            }
-//        }
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int tempScore = 0;
+                for (int i = 0; i < numRow; i++){
+                    for (int j = 0; j < numCol; j++){
+                        if (compArray[i][j] == 1) {
+                            if (sqArray[i][j].isSelected()){
+                                tempScore += 2;
+                            } else {
+                                tempScore -= 1;
+                            }
+                        } else {
+                            if (sqArray[i][j].isSelected()){
+                                tempScore -= 1;
+                            }
+                        }
+                    }
+                }
+                gameScore.score += max(0, tempScore);
+                scoreText.setText("Score: " + gameScore.score);
+                shuffleSquares();
+            }
+        });
+
+        for(int i = 0; i < numRow; i++){
+            for(int j = 0; j < numCol; j++){
+                final int x = i;
+                final int y = j;
+                sqArray[i][j].setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        toggleSquare(sqArray[x][y]);
+                    }
+                });
+            }
+        }
 
         Button shuffleButton = (Button) findViewById(R.id.shuffle_button);
         shuffleButton.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +196,11 @@ public class SinglePlay extends AppCompatActivity {
     }
 
     public void shuffleSquares() {
+        for (int i = 0; i < numRow; i++) {
+            for (int j = 0; j < numCol; j++){
+                compArray[i][j] = 0;
+            }
+        }
         Random obj = new Random();
         int coloured = obj.nextInt(5) + 5;
         int[] randomArr = new int[coloured];
@@ -173,6 +218,16 @@ public class SinglePlay extends AppCompatActivity {
             int col = (randomArr[i] - 1) % 4;
             ImageView sq = sqArray[row][col];
             toggleSquare(sq);
+        }
+
+        for (int i = 0; i < numRow; i++) {
+            for (int j = 0; j < numCol; j++){
+                if(sqArray[i][j].isSelected()) {
+                    compArray[i][j] = 1;
+                } else {
+                    compArray[i][j] = 0;
+                }
+            }
         }
     }
 
