@@ -22,8 +22,8 @@ public class Main extends AppCompatActivity {
 
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(Main.this, SinglePlay.class);
-                Main.this.startActivity(i);
+                    Intent i = new Intent(Main.this, SinglePlay.class);
+                    Main.this.startActivity(i);
             }
         });
     }

@@ -54,6 +54,7 @@ public class SinglePlay extends AppCompatActivity {
     final int timeOut = 2000;
 
     protected void onCreate(Bundle savedInstanceState) {
+        GameTimer t = new GameTimer(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
 
@@ -275,6 +276,12 @@ public class SinglePlay extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    protected void onStop() {
+        super.onStop();
+        Intent i = new Intent(SinglePlay.this, EndGame.class);
+        SinglePlay.this.startActivity(i);
     }
 
 }
