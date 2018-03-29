@@ -37,6 +37,7 @@ public class SinglePlay extends AppCompatActivity {
     ImageButton pauseButton;
     ImageView pauseScreenBackground;
     Button resumeButton;
+    Button quitGameButton;
     Button mainmenuButton;
     Button nextButton;
     TextView scoreText;
@@ -61,6 +62,7 @@ public class SinglePlay extends AppCompatActivity {
         pauseButton = (ImageButton) findViewById(R.id.pause_button);
         pauseScreenBackground = (ImageView) findViewById(R.id.pause_screen_background);
         resumeButton = (Button) findViewById(R.id.resume_button);
+        quitGameButton = (Button) findViewById(R.id.quit_game_button);
         mainmenuButton = (Button) findViewById(R.id.main_menu_button);
         nextButton = (Button) findViewById(R.id.next_button);
         scoreText = (TextView) findViewById(R.id.score_text);
@@ -104,13 +106,14 @@ public class SinglePlay extends AppCompatActivity {
         final GameScore gameScore = new GameScore();
         gameScore.score = 0;
 
-        shuffleSquares();
+        runGame();
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 pauseShadow.setVisibility(View.VISIBLE);
                 pauseScreenBackground.setVisibility(View.VISIBLE);
                 resumeButton.setVisibility(View.VISIBLE);
+                quitGameButton.setVisibility(View.VISIBLE);
                 mainmenuButton.setVisibility(View.VISIBLE);
                 pauseButton.setEnabled(false);
                 nextButton.setEnabled(false);
@@ -124,9 +127,10 @@ public class SinglePlay extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                pauseShadow.setVisibility(View.GONE);
-                pauseScreenBackground.setVisibility(View.GONE);
+                    pauseScreenBackground.setVisibility(View.GONE);
                 resumeButton.setVisibility(View.GONE);
+                pauseShadow.setVisibility(View.GONE);
+                quitGameButton.setVisibility(View.GONE);
                 mainmenuButton.setVisibility(View.GONE);
                 pauseButton.setEnabled(true);
                 nextButton.setEnabled(true);
@@ -135,6 +139,13 @@ public class SinglePlay extends AppCompatActivity {
                         sqArray[i][j].setEnabled(true);
                     }
                 }
+            }
+        });
+
+        quitGameButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(SinglePlay.this, EndGame.class);
+                SinglePlay.this.startActivity(i);
             }
         });
 
@@ -147,25 +158,8 @@ public class SinglePlay extends AppCompatActivity {
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int tempScore = 0;
-                for (int i = 0; i < numRow; i++){
-                    for (int j = 0; j < numCol; j++){
-                        if (compArray[i][j] == 1) {
-                            if (sqArray[i][j].isSelected()){
-                                tempScore += 2;
-                            } else {
-                                tempScore -= 1;
-                            }
-                        } else {
-                            if (sqArray[i][j].isSelected()){
-                                tempScore -= 1;
-                            }
-                        }
-                    }
-                }
-                gameScore.score += max(0, tempScore);
-                scoreText.setText("Score: " + gameScore.score);
-                shuffleSquares();
+                updateScore(gameScore);
+                runGame();
             }
         });
 
@@ -181,30 +175,82 @@ public class SinglePlay extends AppCompatActivity {
             }
         }
 
-        Button shuffleButton = (Button) findViewById(R.id.shuffle_button);
-        shuffleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shuffleSquares();
-                final Handler handler = new Handler();
-                final Timer timer2 = new Timer();
-                TimerTask testing = new TimerTask() {
+//        Button shuffleButton = (Button) findViewById(R.id.shuffle_button);
+//        shuffleButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                shuffleSquares();
+//                final Handler handler = new Handler();
+//                final Timer timer2 = new Timer();
+//                TimerTask testing = new TimerTask() {
+//                    public void run() {
+//                        handler.post(new Runnable() {
+//                            public void run() {
+//                                resetSquares();
+//                                timer2.cancel();
+//                            }
+//
+//                        });
+//
+//
+//                    }
+//                };
+//                timer2.schedule(testing, timeOut);
+//
+//            }
+//        });
+    }
+
+    public void runGame(){
+        resetSquares();
+        shuffleSquares();
+        for(int i = 0; i < numRow; i++) {
+            for(int j = 0; j < numCol; j++){
+                sqArray[i][j].setEnabled(false);
+            }
+        }
+        final Handler handler = new Handler();
+        final Timer timer2 = new Timer();
+        TimerTask testing = new TimerTask() {
+            public void run() {
+                handler.post(new Runnable() {
                     public void run() {
-                        handler.post(new Runnable() {
-                            public void run() {
-                                resetSquares();
-                                timer2.cancel();
+                        resetSquares();
+                        for(int i = 0; i < numRow; i++) {
+                            for(int j = 0; j < numCol; j++){
+                                sqArray[i][j].setEnabled(true);
                             }
-
-                        });
-
-
+                        }
+                        timer2.cancel();
                     }
-                };
-                timer2.schedule(testing, timeOut);
+
+                });
+
 
             }
-        });
+        };
+        timer2.schedule(testing, timeOut);
+    }
+
+    public void updateScore(GameScore gameScore){
+        int tempScore = 0;
+        for (int i = 0; i < numRow; i++){
+            for (int j = 0; j < numCol; j++){
+                if (compArray[i][j] == 1) {
+                    if (sqArray[i][j].isSelected()){
+                        tempScore += 2;
+                    } else {
+                        tempScore -= 1;
+                    }
+                } else {
+                    if (sqArray[i][j].isSelected()){
+                        tempScore -= 1;
+                    }
+                }
+            }
+        }
+        gameScore.score += max(0, tempScore);
+        scoreText.setText("Score: " + gameScore.score);
     }
 
     public void toggleSquare(ImageView square) {
@@ -224,7 +270,7 @@ public class SinglePlay extends AppCompatActivity {
             }
         }
         Random obj = new Random();
-        int coloured = obj.nextInt(5) + 5;
+        int coloured = obj.nextInt(5) + 1;
         int[] randomArr = new int[coloured];
         for (int i = 0; i < coloured; ++i) {
             while (true) {

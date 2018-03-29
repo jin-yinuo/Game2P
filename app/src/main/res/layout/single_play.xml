@@ -11,15 +11,15 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <Button
-        android:id="@+id/shuffle_button"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:text="Shuffle"
-        android:textSize="24sp"
-        android:visibility="visible"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+    <!--<Button-->
+        <!--android:id="@+id/shuffle_button"-->
+        <!--android:layout_width="88dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:text="Shuffle"-->
+        <!--android:textSize="24sp"-->
+        <!--android:visibility="visible"-->
+        <!--tools:layout_editor_absoluteY="0dp"-->
+        <!--tools:layout_editor_absoluteX="0dp" />-->
 
     <LinearLayout
         android:id="@+id/gameBlock"
@@ -292,10 +292,19 @@
             android:visibility="gone" />
 
         <Button
-            android:id="@+id/main_menu_button"
+            android:id="@+id/quit_game_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/resume_button"
+            android:text="Quit Game"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/main_menu_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/quit_game_button"
             android:text="Main Menu"
             android:textSize="24sp"
             android:visibility="gone" />
