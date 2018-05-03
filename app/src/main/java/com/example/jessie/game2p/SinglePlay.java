@@ -145,8 +145,7 @@ public class SinglePlay extends AppCompatActivity {
 
         quitGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(SinglePlay.this, EndGame.class);
-                SinglePlay.this.startActivity(i);
+                SinglePlay.this.finish();
             }
         });
 
