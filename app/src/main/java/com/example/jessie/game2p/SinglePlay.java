@@ -4,7 +4,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -107,7 +109,9 @@ public class SinglePlay extends AppCompatActivity {
         final GameScore gameScore = new GameScore();
         gameScore.score = 0;
 
+
         runGame();
+
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -128,7 +132,7 @@ public class SinglePlay extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                    pauseScreenBackground.setVisibility(View.GONE);
+                pauseScreenBackground.setVisibility(View.GONE);
                 resumeButton.setVisibility(View.GONE);
                 pauseShadow.setVisibility(View.GONE);
                 quitGameButton.setVisibility(View.GONE);
@@ -202,6 +206,7 @@ public class SinglePlay extends AppCompatActivity {
     }
 
     public void runGame(){
+        nextButton.setEnabled(false);
         resetSquares();
         shuffleSquares();
         for(int i = 0; i < numRow; i++) {
@@ -217,11 +222,12 @@ public class SinglePlay extends AppCompatActivity {
                     public void run() {
                         resetSquares();
                         for(int i = 0; i < numRow; i++) {
-                            for(int j = 0; j < numCol; j++){
+                            for (int j = 0; j < numCol; j++) {
                                 sqArray[i][j].setEnabled(true);
                             }
                         }
                         timer2.cancel();
+                        nextButton.setEnabled(true);
                     }
 
                 });

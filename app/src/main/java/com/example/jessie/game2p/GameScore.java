@@ -5,5 +5,5 @@ package com.example.jessie.game2p;
  */
 
 public class GameScore {
-    int score = 0;
+    public static int score = 0;
 }
