@@ -1,5 +1,6 @@
 package com.example.jessie.game2p;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
@@ -29,6 +30,8 @@ public class GameTimer {
                         public void run() {
                             timeLeft--;
                             if (timeLeft == 0) {
+                                Intent i = new Intent(sss, EndGame.class);
+                                sss.startActivity(i);
                                 sss.finish();
                             };
                         }

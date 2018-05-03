@@ -51,6 +51,9 @@ public class SinglePlay extends AppCompatActivity {
     int[][] compArray;
 
     int totalScore;
+    int difficulty = 4;
+    int round = 0;
+    int difficultyInterval = 3;
 
     final int numRow = 8;
     final int numCol = 4;
@@ -149,6 +152,8 @@ public class SinglePlay extends AppCompatActivity {
 
         quitGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent i = new Intent(SinglePlay.this, EndGame.class);
+                SinglePlay.this.startActivity(i);
                 SinglePlay.this.finish();
             }
         });
@@ -207,6 +212,12 @@ public class SinglePlay extends AppCompatActivity {
 
     public void runGame(){
         nextButton.setEnabled(false);
+
+        if (round % difficultyInterval == 0) {
+            difficulty++;
+        };
+        round++;
+
         resetSquares();
         shuffleSquares();
         for(int i = 0; i < numRow; i++) {
@@ -276,7 +287,7 @@ public class SinglePlay extends AppCompatActivity {
             }
         }
         Random obj = new Random();
-        int coloured = obj.nextInt(5) + 1;
+        int coloured = obj.nextInt(1) + difficulty;
         int[] randomArr = new int[coloured];
         for (int i = 0; i < coloured; ++i) {
             while (true) {
@@ -331,8 +342,6 @@ public class SinglePlay extends AppCompatActivity {
 
     protected void onStop() {
         super.onStop();
-        Intent i = new Intent(SinglePlay.this, EndGame.class);
-        SinglePlay.this.startActivity(i);
     }
 
 }
