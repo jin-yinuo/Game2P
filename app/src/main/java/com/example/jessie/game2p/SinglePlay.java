@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.animation.ValueAnimator;
 
 import org.w3c.dom.Element;
 
@@ -49,6 +50,7 @@ public class SinglePlay extends AppCompatActivity {
     Button[][] bArray;
     ImageView[][] sqArray;
     int[][] compArray;
+    GameTimer t = new GameTimer(this);
 
     int totalScore;
     int difficulty = 4;
@@ -58,9 +60,9 @@ public class SinglePlay extends AppCompatActivity {
     final int numRow = 8;
     final int numCol = 4;
     final int timeOut = 2000;
+    final int animationTimeout = 1000;
 
     protected void onCreate(Bundle savedInstanceState) {
-        GameTimer t = new GameTimer(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_play);
 
@@ -118,6 +120,7 @@ public class SinglePlay extends AppCompatActivity {
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                t.pause();
                 pauseShadow.setVisibility(View.VISIBLE);
                 pauseScreenBackground.setVisibility(View.VISIBLE);
                 resumeButton.setVisibility(View.VISIBLE);
@@ -168,7 +171,6 @@ public class SinglePlay extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 updateScore(gameScore);
-                runGame();
             }
         });
 
@@ -258,16 +260,33 @@ public class SinglePlay extends AppCompatActivity {
                         tempScore += 2;
                     } else {
                         tempScore -= 1;
+                        fadeAnswer(sqArray[i][j], true);
                     }
                 } else {
                     if (sqArray[i][j].isSelected()){
                         tempScore -= 1;
+                        fadeAnswer(sqArray[i][j], false);
                     }
                 }
             }
         }
         gameScore.score += max(0, tempScore);
         scoreText.setText("Score: " + gameScore.score);
+
+        final Handler handler = new Handler();
+        final Timer timer2 = new Timer();
+        TimerTask testing = new TimerTask() {
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        runGame();
+                    }
+                });
+
+
+            }
+        };
+        timer2.schedule(testing, animationTimeout + 1000);
     }
 
     public void toggleSquare(ImageView square) {
@@ -278,6 +297,37 @@ public class SinglePlay extends AppCompatActivity {
             square.setColorFilter(Color.RED);
             square.setSelected(true);
         }
+    }
+
+    public void fadeAnswer(final ImageView sq, boolean missing) { // missing answer: fade from blue to red
+                                              // extra answer: fade from red to blue
+        final float[] from = new float[3],
+                to =   new float[3];
+
+        if (missing) {
+            Color.colorToHSV(Color.BLUE, from);   // from white
+            Color.colorToHSV(Color.RED, to);     // to red
+        } else {
+            Color.colorToHSV(Color.RED, from);   // from white
+            Color.colorToHSV(Color.BLUE, to);     // to red
+        }
+
+        ValueAnimator anim = ValueAnimator.ofFloat(0, 1);   // animate from 0 to 1
+        anim.setDuration(animationTimeout);                              // for 300 ms
+
+        final float[] hsv  = new float[3];                  // transition color
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
+            @Override public void onAnimationUpdate(ValueAnimator animation) {
+                // Transition along each axis of HSV (hue, saturation, value)
+                hsv[0] = from[0] + (to[0] - from[0])*animation.getAnimatedFraction();
+                hsv[1] = from[1] + (to[1] - from[1])*animation.getAnimatedFraction();
+                hsv[2] = from[2] + (to[2] - from[2])*animation.getAnimatedFraction();
+
+                sq.setColorFilter(Color.HSVToColor(hsv));
+            }
+        });
+
+        anim.start();
     }
 
     public void shuffleSquares() {
@@ -338,6 +388,11 @@ public class SinglePlay extends AppCompatActivity {
         }
 
         return result;
+    }
+
+    protected void onPause() {
+        super.onPause();
+        pauseButton.performClick();
     }
 
     protected void onStop() {
