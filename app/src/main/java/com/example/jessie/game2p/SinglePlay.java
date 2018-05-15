@@ -73,40 +73,16 @@ public class SinglePlay extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.next_button);
         scoreText = (TextView) findViewById(R.id.score_text);
 
-        i11 = (ImageView) findViewById(R.id.imageView11);
-        i12 = (ImageView) findViewById(R.id.imageView12);
-        i13 = (ImageView) findViewById(R.id.imageView13);
-        i14 = (ImageView) findViewById(R.id.imageView14);
-        i21 = (ImageView) findViewById(R.id.imageView21);
-        i22 = (ImageView) findViewById(R.id.imageView22);
-        i23 = (ImageView) findViewById(R.id.imageView23);
-        i24 = (ImageView) findViewById(R.id.imageView24);
-        i31 = (ImageView) findViewById(R.id.imageView31);
-        i32 = (ImageView) findViewById(R.id.imageView32);
-        i33 = (ImageView) findViewById(R.id.imageView33);
-        i34 = (ImageView) findViewById(R.id.imageView34);
-        i41 = (ImageView) findViewById(R.id.imageView41);
-        i42 = (ImageView) findViewById(R.id.imageView42);
-        i43 = (ImageView) findViewById(R.id.imageView43);
-        i44 = (ImageView) findViewById(R.id.imageView44);
-        i51 = (ImageView) findViewById(R.id.imageView51);
-        i52 = (ImageView) findViewById(R.id.imageView52);
-        i53 = (ImageView) findViewById(R.id.imageView53);
-        i54 = (ImageView) findViewById(R.id.imageView54);
-        i61 = (ImageView) findViewById(R.id.imageView61);
-        i62 = (ImageView) findViewById(R.id.imageView62);
-        i63 = (ImageView) findViewById(R.id.imageView63);
-        i64 = (ImageView) findViewById(R.id.imageView64);
-        i71 = (ImageView) findViewById(R.id.imageView71);
-        i72 = (ImageView) findViewById(R.id.imageView72);
-        i73 = (ImageView) findViewById(R.id.imageView73);
-        i74 = (ImageView) findViewById(R.id.imageView74);
-        i81 = (ImageView) findViewById(R.id.imageView81);
-        i82 = (ImageView) findViewById(R.id.imageView82);
-        i83 = (ImageView) findViewById(R.id.imageView83);
-        i84 = (ImageView) findViewById(R.id.imageView84);
-        sqArray = new ImageView[][]{{i11, i12, i13, i14}, {i21, i22, i23, i24}, {i31, i32, i33, i34}, {i41, i42, i43, i44},
-                {i51, i52, i53, i54}, {i61, i62, i63, i64}, {i71, i72, i73, i74}, {i81, i82, i83, i84}};
+        sqArray = new ImageView[numRow][numCol];
+
+        for(int i = 1; i <= numRow; i++){
+            for(int j = 1; j <= numCol; j++) {
+                String buttonID = "imageView" + i + j;
+                int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+                sqArray[i - 1][j - 1] = ((ImageView) findViewById(resID));
+            }
+        }
+
         compArray = new int[numRow][numCol];
 
         final GameScore gameScore = new GameScore();
